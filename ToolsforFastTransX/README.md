@@ -3,6 +3,7 @@
   
 ##用意するデータ
 ナレッジグラフ推論チャレンジの[SPARQLエンドポイント](http://knowledge-graph.jp/sparql.html)からhead, relation, tailの組み合わせをCSVで取得  
+下記SPARQLクエリを実行しCSVを取得  
 ```
 PREFIX kgc: <http://kgc.knowledge-graph.jp/ontology/kgc.owl#>
 SELECT DISTINCT *
