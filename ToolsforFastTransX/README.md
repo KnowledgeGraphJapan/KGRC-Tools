@@ -16,5 +16,13 @@ WHERE {
 }
 ```
 
+## 実行
+
+
+`java -jar URI2ID.jar [csvファイルのパス]`  
+data/SpeckledBand.csvを読み込みexportフォルダにidリストのファイル（entity2id.txt, relation2id.txt, train2id.txt）を作成  
+
+`java -jar RestoreURI.jar [entity2id.txt|relation2id.txt] [entity2vec.vec|relation2vec.vec]`  
+  
 ## 埋め込み表現獲得後のベクトルデータ
 [こちら](https://github.com/KnowledgeGraphJapan/KGRC-Tools/tree/master/ToolsforFastTransX/vector)
