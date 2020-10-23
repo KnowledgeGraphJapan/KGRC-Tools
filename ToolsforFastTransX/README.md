@@ -25,4 +25,5 @@ data/SpeckledBand.csvを読み込みexportフォルダにidリストのファイ
 `java -jar RestoreURI.jar [entity2id.txt|relation2id.txt] [entity2vec.vec|relation2vec.vec]`  
   
 ## 埋め込み表現獲得後のベクトルデータ
+TransE(500次元, 100エポック)  
 [こちら](https://github.com/KnowledgeGraphJapan/KGRC-Tools/tree/master/ToolsforFastTransX/vector)
