@@ -4,7 +4,7 @@
   
 ## 用意するデータ
 ナレッジグラフ推論チャレンジの[SPARQLエンドポイント](http://knowledge-graph.jp/sparql.html)からhead, relation, tailの組み合わせをCSVで取得  
-下記SPARQLクエリを実行しCSVを取得  
+下記SPARQLクエリを実行しTSVを取得  
 ```
 #まだらの紐からtailがリテラルでないトリプルを取得(TransEはリテラルを扱えないため)
 PREFIX kgc: <http://kgc.knowledge-graph.jp/ontology/kgc.owl#>
@@ -19,8 +19,8 @@ WHERE {
 ## 実行
 
 
-`java -jar URI2ID.jar [csvファイルのパス]`  
-data/SpeckledBand.csvを読み込みexportフォルダにidリストのファイル（entity2id.txt, relation2id.txt, train2id.txt）を作成  
+`java -jar URI2ID.jar [tsvファイルのパス]`  
+data/SpeckledBand.tsvを読み込みexportフォルダにidリストのファイル（entity2id.txt, relation2id.txt, train2id.txt）を作成  
 
 `java -jar RestoreURI.jar [entity2id.txt|relation2id.txt] [entity2vec.vec|relation2vec.vec]`  
   

@@ -34,7 +34,7 @@ public class URI2ID {
 			int j = 0;	//edgeId
 			br.readLine();	//最初の行を飛ばす
 			while((line = br.readLine()) != null) {
-				array = line.split(",");
+				array = line.split("\t");
 				s = array[0].replaceAll("\"", "");
 				//URIと連番IDの対応表作成
 				if(nodeMap.containsKey(s)) {
