@@ -4,8 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /*
  * Fast-TransX用にURIをIDに置き換える
@@ -156,17 +160,37 @@ public class URI2ID {
 			/* ID 対応表*/
 
 			//node idリスト
+			
+			List<Entry<String, Integer>> list_nodeMap = new ArrayList<Entry<String, Integer>>(nodeMap.entrySet());
+	        // idの値で昇順に並び替え
+	        Collections.sort(list_nodeMap, new Comparator<Entry<String, Integer>>() {
+	            public int compare(Entry<String, Integer> obj1, Entry<String, Integer> obj2) {
+	                // 昇順
+	                return obj1.getValue().compareTo(obj2.getValue());
+	            }
+	        });
+			
 			FileWriter fw2 = new FileWriter(node_id_list, true);
 			fw2.write(Integer.toString(nodeMap.size()) + "\n");
-			for(Map.Entry<String, Integer> e : nodeMap.entrySet()) {
+			for(Map.Entry<String, Integer> e : list_nodeMap) {
 				fw2.write(e.getKey() + "\t" + e.getValue() + "\n");
 			}
 			fw2.close();
 
 			//edge idリスト
+			
+			List<Entry<String, Integer>> list_edgeMap = new ArrayList<Entry<String, Integer>>(edgeMap.entrySet());
+			// idの値で昇順に並び替え
+	        Collections.sort(list_edgeMap, new Comparator<Entry<String, Integer>>() {
+	            public int compare(Entry<String, Integer> obj1, Entry<String, Integer> obj2) {
+	                // 昇順
+	                return obj1.getValue().compareTo(obj2.getValue());
+	            }
+	        });
+			
 			FileWriter fw3 = new FileWriter(edge_id_list, true);
 			fw3.write(Integer.toString(edgeMap.size()) + "\n");
-			for(Map.Entry<String, Integer> e : edgeMap.entrySet()) {
+			for(Map.Entry<String, Integer> e : list_edgeMap) {
 				fw3.write(e.getKey() + "\t" + e.getValue() + "\n");
 			}
 			fw3.close();
