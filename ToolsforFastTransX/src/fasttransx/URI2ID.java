@@ -74,7 +74,12 @@ public class URI2ID {
 
 	public static void main(String[] args) {
 		String path = args[0];
-		String out = "export/train2id.txt";
+		String train_size = args[1];
+		String valid_size = args[2];
+		String test_size = args[3];
+		String train2id = "export/train2id.txt";
+		String valid2id = "export/valid2id.txt";
+		String test2id = "export/test2id.txt";
 		String node_id_list = "export/entity2id.txt";
 		String edge_id_list = "export/relation2id.txt";
 
@@ -82,15 +87,73 @@ public class URI2ID {
 		ArrayList<String> edge_list = createEdgeList(path);
 		try {
 
+			int triple_size = edge_list.size();
+			Double train_ratio = Double.parseDouble(train_size)/10;
+			Double valid_ratio = Double.parseDouble(valid_size)/10;
+			Double test_ratio = Double.parseDouble(test_size)/10;
+			int train_triple_size = (int) Math.round(triple_size * train_ratio);
+			int valid_triple_size = (int) Math.round(triple_size * valid_ratio);
+			int test_triple_size = (int) Math.round(triple_size * test_ratio);
+			
+			System.out.println("Total: " + triple_size);
+			int triple_size2 = train_triple_size + valid_triple_size + test_triple_size;
+			System.out.println("Sum of train, valid, and test: " + triple_size2);
+			if (triple_size != triple_size2) {
+				boolean flag = true;
+				if (triple_size2 < triple_size) {
+					while (flag) {
+						if (triple_size2 < triple_size) {
+							train_triple_size++;
+							triple_size2 = train_triple_size + valid_triple_size + test_triple_size;
+							System.out.println("train++");
+						} else {
+							flag = false;
+						}
+					}
+				} else {
+					while (flag) {
+						if (triple_size2 > triple_size) {
+							train_triple_size--;
+							triple_size2 = train_triple_size + valid_triple_size + test_triple_size;
+							System.out.println("train--");
+						} else {
+							flag = false;
+						}
+					}
+				}
+			}
+			
 			/* 
 			 * head relation tailをタブ区切りで
 			 */
-			FileWriter fw = new FileWriter(out, true);
-			fw.write(Integer.toString(edge_list.size()) + "\n");
-			for(String edge : edge_list) {
-				fw.write(edge + "\n");
+			
+			System.out.println("train:" + train_triple_size + ", validation: " + valid_triple_size + ", test: " + test_triple_size);
+			
+			// train
+			FileWriter fw = new FileWriter(train2id, true);
+			fw.write(Integer.toString(train_triple_size) + "\n");
+			for(int i=0; i<train_triple_size; i++) {
+				fw.write(edge_list.get(i) + "\n");
 			}
 			fw.close();
+			
+			// valid
+			FileWriter fw_v = new FileWriter(valid2id, true);
+			fw_v.write(Integer.toString(valid_triple_size) + "\n");
+			for(int i=train_triple_size; i<(train_triple_size + valid_triple_size); i++) {
+				fw_v.write(edge_list.get(i) + "\n");
+			}
+			fw_v.close();
+			
+			// test
+			FileWriter fw_t = new FileWriter(test2id, true);
+			fw_t.write(Integer.toString(test_triple_size) + "\n");
+			for(int i=(train_triple_size + valid_triple_size); i<(train_triple_size + valid_triple_size + test_triple_size); i++) {
+				fw_t.write(edge_list.get(i) + "\n");
+			}
+			fw_t.close();
+			
+			/* ID 対応表*/
 
 			//node idリスト
 			FileWriter fw2 = new FileWriter(node_id_list, true);

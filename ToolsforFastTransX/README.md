@@ -2,8 +2,12 @@
 ナレッジグラフの埋め込み表現を獲得するTranslation-basedモデル(TransE等)のプログラム群[Fast-TransX](https://github.com/thunlp/Fast-TransX)用に、ナレッジグラフのURIをIDに置き換える前処理、IDからURIを復元する後処理スクリプトです。  
 [ナレッジグラフ推論チャレンジTech Liv！](https://www.slideshare.net/KnowledgeGraph/part-2tech-live-238950488)で紹介  
   
+## 2022/06/26更新
+学習データ, 検証データ, テストデータの割合を指定してそれぞれファイルを生成する機能を追加  
+与えるtsvデータの順序をランダムにする必要あり
+
 ## 用意するデータ
-ナレッジグラフ推論チャレンジの[SPARQLエンドポイント](http://knowledge-graph.jp/sparql.html)からhead, relation, tailの組み合わせをCSVで取得  
+ナレッジグラフ推論チャレンジの[SPARQLエンドポイント](http://knowledge-graph.jp/sparql.html)からhead, relation, tailの組み合わせをTSVで取得  
 下記SPARQLクエリを実行しTSVを取得  
 ```
 #まだらの紐からtailがリテラルでないトリプルを取得(TransEはリテラルを扱えないため)
@@ -19,8 +23,13 @@ WHERE {
 ## 実行
 
 
+<<<<<<< HEAD
 `java -jar URI2ID.jar [tsvファイルのパス]`  
 data/SpeckledBand.tsvを読み込みexportフォルダにidリストのファイル（entity2id.txt, relation2id.txt, train2id.txt）を作成  
+=======
+`java -jar URI2ID.jar [tsvファイルのパス] [学習データの割合(0〜10)] [検証データの割合(0〜10)] [テストデータの割合(0〜10)]`  
+data/SpeckledBand.tsvを読み込みexportフォルダにidリストのファイル（entity2id.txt, relation2id.txt, train2id.txt, valid2id.txt, test2id.txt）を作成  
+>>>>>>> fd5ff2c8ecc60ce167bf8c5b7e126734dccd809f
 
 `java -jar RestoreURI.jar [entity2id.txt|relation2id.txt] [entity2vec.vec|relation2vec.vec]`  
   
