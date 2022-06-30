@@ -23,13 +23,11 @@ WHERE {
 ## 実行
 
 
-<<<<<<< HEAD
 `java -jar URI2ID.jar [tsvファイルのパス]`  
 data/SpeckledBand.tsvを読み込みexportフォルダにidリストのファイル（entity2id.txt, relation2id.txt, train2id.txt）を作成  
 =======
 `java -jar URI2ID.jar [tsvファイルのパス] [学習データの割合(0〜10)] [検証データの割合(0〜10)] [テストデータの割合(0〜10)]`  
 data/SpeckledBand.tsvを読み込みexportフォルダにidリストのファイル（entity2id.txt, relation2id.txt, train2id.txt, valid2id.txt, test2id.txt）を作成  
->>>>>>> fd5ff2c8ecc60ce167bf8c5b7e126734dccd809f
 
 `java -jar RestoreURI.jar [entity2id.txt|relation2id.txt] [entity2vec.vec|relation2vec.vec]`  
   
